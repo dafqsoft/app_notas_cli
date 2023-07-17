@@ -11,9 +11,6 @@ function escribir(){
         nota=prompt();
         if(nota.length!=0 && nota.length<=60){
             notas_listado.push(nota);
-            // if(cantidadDeNotas==notas_listado.length){
-            //     console.log("Error, no pudo guardarse su nota");
-            // }
             console.log("Nota guardada correctamente");
             break;
         }
@@ -35,15 +32,11 @@ function listar(){
 }
 
 function mostrar(indice){
-    // console.log("Escriba el indice de la nota a mostrar deseada");
-    // let nota=parseInt(prompt());
     console.log("Nota n.", indice, ":", notas_listado[(indice-1)]);
     return true;
 }
 
 function editar(indice){
-    // console.log("Escriba el indice de la nota a editar");
-    // let nota=parseInt(prompt());
     let notaAEditar=notas_listado[(indice-1)];
     let notaEditada=prompt(notas_listado[(indice-1)]);
     notas_listado[(indice-1)]=notaAEditar+notaEditada;
@@ -51,9 +44,7 @@ function editar(indice){
 }
 
 function borrar(indice){
-    // console.log("Escriba el indice de la nota a borrar")
     let numeroNotasOriginales=notas_listado.length;
-
     let i = 0;
     while (i < notas_listado.length) {
         if (i === (indice-1)) {
@@ -66,7 +57,6 @@ function borrar(indice){
         }
         i++;
     }  
-
     if(numeroNotasOriginales>notas_listado.length){
         console.log("La nota se borro satisfactoriamente");
         return true
