@@ -5,6 +5,8 @@
 // Este codigo sera modificado posteriormente para que quede 
 // mejor graficamente.
 
+// los cambios no se han testeado
+
 const readline = require('readline');
 
 // Creamos un arreglo vacío para almacenar nuestras notas
@@ -12,19 +14,41 @@ let notas = [];
 
 // Creamos una instancia de readline para leer la entrada del usuario
 const rl = readline.createInterface({
+ // prompt: process.prompt,
   input: process.stdin,
   output: process.stdout
 });
 
+nota= createInterface({
+  no,
+  titulo,
+  contenido,
+  fecha_creacion
+})
+
 // Función para agregar una nota
 function agregarNota() {
   console.clear()
-  rl.question('Escribe tu nota: ', (nota) => {
-    // Agregamos la nota al arreglo
-    notas.push(nota);
-    console.log('Nota agregada correctamente');
+  rl.question('Escribe el titulo de tu nota: ', (resumen) => {
+    if(resumen.length>50){
+      agregarNota()
+    }
+    rl.question('Escribe el contenido de tu nota: ', (escrito)=> {
+      // Agregamos la nota al arreglo
+      let id=0;
+      if(notas.length!=0){
+        id=notas.length-1;
+      }
+
+      let nota = new nota(
+        id,resumen, escrito,Date.now()
+      )
+      notas.push(nota);
+      console.log('Nota agregada correctamente');
+
+      menu();
+    })
     
-    menu();
   });
 }
 
@@ -35,12 +59,13 @@ function verNotas() {
   if (notas.length === 0) {
     console.log('No hay notas para mostrar')
     menu()
-    return
+    // return
   }
 
   console.log('Tus notas:');
   for (let i = 0; i < notas.length; i++) {
-    console.log(`${i + 1}. ${notas[i]}`);
+    //console.log(`${i + 1}. ${notas[i]}`);
+    console.log(notas[i].no + " titulo: " + notas[i].titulo)
   }
 
   menu();
@@ -64,7 +89,10 @@ function editarNota() {
       return;
     }
 
+    //let nota = rl.prompt(notas[index]);
+
     rl.question('Escribe la nueva versión de la nota: ', (nota) => {
+
       // Actualizamos la nota en el arreglo
       notas[index - 1] = nota;
       console.log('Nota actualizada correctamente');
@@ -94,9 +122,10 @@ function eliminarNota() {
     // Eliminamos la nota del arreglo
     let nuevasNotas = [];
     for (let i = 0; i < notas.length; i++) {
-      if (i !== index - 1) {
-        nuevasNotas.push(notas[i]);
+      if (i == index - 1) {
+        continue
       }
+      nuevasNotas.push(notas[i]);
     }
 
     notas = nuevasNotas;
